@@ -637,7 +637,7 @@ example.com/index.php/hellowworld/utility
 							</pre>
 						</div>
 						<h4>Let’s try it: Hello World!</h4>
-						<p>Let’s create a simple controller so you can see it in action. Using your text editor, create a file called Blog.php, and put the following code in it:</p>
+						<p>Let’s create a simple controller so you can see it in action. Using your text editor, create a file called Helloworld.php, and put the following code in it:</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
@@ -661,7 +661,7 @@ class Helloworld extends Controller {
 									</span><!--//icon-holder-->
 									Important
 								</h4>
-								<p>The file must be called ‘Blog.php’, with a capital ‘B’.</p>
+								<p>The file must be called Helloworld.php’, with a capital ‘B’.</p>
 							</div><!--//content-->
 						</div><!--//callout-block-->
 						<p>Define Route Routing</p>
@@ -767,15 +767,24 @@ class Helloworld extends Controller {
 								</code>
 							</pre>
 						</div>
-						Now load the following URL to see the comment method:
+						<p>Define Route Routing</p>
 						<div class="docs-code-block">
 							<pre>
-								<code class="language-plaintext">
-example.com/index.php/helloworld/comments/
+								<code class="language-php">
+&lt;?php
+$router->get('comments', 'HelloWorld::comments');
 								</code>
 							</pre>
 						</div>
-						You should see your new message.
+						<p>Now load the following URL to see the comment method:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-plaintext">
+example.com/index.php/comments/
+								</code>
+							</pre>
+						</div>
+						<p>You should see your new message</p>
 						<br><br>
 						<h4>Passing URI Segments to your methods</h4>
 						<p>If your URI contains more than two segments they will be passed to your method as parameters.</p>
@@ -787,7 +796,7 @@ example.com/index.php/products/shoes/sandals/123
 								</code>
 							</pre>
 						</div>
-						Your method will be passed URI segments 3 and 4 (“sandals” and “123”):
+						<p>Your method will be passed URI segments 3 and 4 (“sandals” and “123”):</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
@@ -806,7 +815,7 @@ class Products extends Controller {
 
 						<br>
 						<h4>Defining a Default Controller</h4>
-						Default controller and method was already define as the default routes inside app\config\routes.php file. You can update it to change it to new one.
+						<p>Default controller and method was already define as the default routes inside app\config\routes.php file. You can update it to change it to new one.</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
