@@ -2665,7 +2665,7 @@ $something = isset($_POST['something']) ? $_POST['something'] : NULL;
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$something = $this->input->post('something');
+$something = $this->io->post('something');
 								</code>
 							</pre>
 						</div>
@@ -2687,7 +2687,7 @@ $this->io->cookie(array('some_cookie', 'some_cookie2'));
 
 //This method is identical to the post(), get() and cookie() methods, only it fetches server data ($_SERVER):
 $this->io->server('field')
-$this->input->server(array('SERVER_PROTOCOL', 'REQUEST_URI'));
+$this->io->server(array('SERVER_PROTOCOL', 'REQUEST_URI'));
 								</code>
 							</pre>
 						</div>
