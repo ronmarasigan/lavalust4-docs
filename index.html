@@ -1502,23 +1502,23 @@ echo $this->performance->elapsed_time('referrence_name');
 								<div class="docs-code-block">
 									<pre>
 										<code class="language-php">
-$this->performance->mark('dog');
+$this->performance->tag('dog');
 
 // Some code happens here
 
-$this->performance->mark('cat');
+$this->performance->tag('cat');
 
 // More code happens here
 
-$this->performance->mark('cat');
+$this->performance->tag('cat');
 
-$this->performance->mark('bird');
+$this->performance->tag('bird');
 
 // More code happens here
 
-$this->performance->mark('bird');
+$this->performance->tag('bird');
 
-$this->performance->mark('dog');
+$this->performance->tag('dog');
 
 echo $this->performance->elapsed_time('dog');
 echo $this->performance->elapsed_time('cat');
