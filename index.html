@@ -55,7 +55,7 @@
 		                <li class="list-inline-item"><a href="https://discord.gg/trcEtgS5ET"><i class="fab fa-discord fa-fw"></i></a></li>
 						<li class="list-inline-item"><a href="https://www.linkedin.com/in/ron-marasigan-a843711b4"><i class="fab fa-linkedin fa-fw"></i></a></li>
 		            </ul><!--//social-list-->
-		            <a href="https://github.com/ronmarasigan/LavaLust4" class="btn btn-primary d-none d-lg-flex">Download</a>
+		            <a href="https://github.com/ronmarasigan/LavaLust" class="btn btn-primary d-none d-lg-flex">Download</a>
 	            </div><!--//docs-top-utilities-->
             </div><!--//container-->
         </div><!--//branding-->
@@ -600,47 +600,7 @@ $router->get('/category/{category}', function (string $category) {
 								</code>
 							</pre>
 						</div>
-						<p>If the incoming request does not match the route pattern constraints, a 404 HTTP response will be returned.</p>
-						<div class="table-responsive-sm">
-							<table class="table table-bordered table-small">
-								<thead>
-									<tr>
-										<th>Placeholders</th>
-										<th>Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>(:any)</td>
-										<td>will match all characters from that point to the end of the URI. This may include multiple URI segments.</td>
-									</tr>
-									<tr>
-										<td>(:num)</td>
-										<td>will match any integer.</td>
-									</tr>
-									<tr>
-										<td>(:alpha)</td>
-										<td>will match any string of alphabetic characters</td>
-									</tr>
-									<tr>
-										<td>(:alphanum)</td>
-										<td>will match any string of alphabetic characters or integers, or any combination of the two.</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<h4>Regular Expressions</h4>
-						<p>If you prefer you can use regular expressions to define your routing rules. Any valid regular expression is allowed, as are back-references.</p>
-						<div class="docs-code-block">
-							<pre>
-								<code class="language-php">
-&lt;?php
-$router->get('product/(:\d{3})', 'Catalog::show');
-								</code>
-							</pre>
-						</div>
-						<p>In the above example, a URI similar to products/123 would instead call the show() method of the Products controller class, with the original first segment passed as arguments to it.</p>
-						<p>For those of you who don’t know regular expressions and want to learn more about them, regular-expressions.info might be a good starting point.</p>
+						<p>If the incoming request does not match the route pattern constraints, a 404 HTTP response will be returned.</p>						
 						<h4>Grouping Routes</h4>
 						<p>You can group your routes under a common name with the <span class="code_red">group()</span> method. The group name becomes a segment that appears prior to the routes defined inside of the group. This allows you to reduce the typing needed to build out an extensive set of routes that all share the opening string, like when building an admin area:</p>
 						<div class="docs-code-block">
