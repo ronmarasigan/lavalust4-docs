@@ -485,20 +485,12 @@ $router->get('journals', 'Blogs');
 						</div>
 						<p>A URL with product as the first segment, and anything in the second will be mapped to the <span class="code_red">\app\controllers\Catalog</span> class and the <span class="code_red">productLookup()</span> method:</p>
 						<p>Controllers are the heart of your application, as they determine how HTTP requests should be handled.</p>
-						<div class="docs-code-block">
-							<pre>
-								<code class="language-php">
-&lt;?php
-$router->get('product/(:segment)', 'Catalog::productLookup');
-								</code>
-							</pre>
-						</div>
 						<p>A URL with product as the first segment, and a number in the second will be mapped to the <span class="code_red">\app\controllers\Catalog</span> class and the <span class="code_red">productLookupByID()</span> method passing in the match as a variable to the method:</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
 &lt;?php
-$router->get('product/(:num)', 'Catalog::productLookupByID');
+$router->get('product/{id}', 'Catalog::productLookupByID');
 								</code>
 							</pre>
 						</div>
@@ -540,19 +532,75 @@ $router->get('feed', function () {
 								</code>
 							</pre>
 						</div>
-						<h4>Placeholders</h4>
-						<p>A typical route might look something like this:</p>
+						<h4>Route Parameter</h4>
+						<p>Sometimes you will need to capture segments of the URI within your route. For example, you may need to capture a user's ID from the URL. You may do so by defining route parameters:</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
 &lt;?php
-$router->get('product/(:num)', 'Catalog::productLookup');
+$route->get('user/{id}', function ($id) {
+    return 'User '.$id;
+});
 								</code>
 							</pre>
 						</div>
-						<p>In a route, the first parameter contains the URI to be matched, while the second parameter contains the destination it should be routed to. In the above example, if the literal word “product” is found in the first segment of the URL path, and a number is found in the second segment, the <span class="code_red">Catalog</span> class and the <span class="code_red">productLookup</span> method are used instead.</p>
-						<p>Placeholders are simply strings that represent a Regular Expression pattern. During the routing process, these placeholders are replaced with the value of the Regular Expression. They are primarily used for readability.</p>
-						<p>The following placeholders are available for you to use in your routes:</p>
+						<p>You may define as many route parameters as required by your route:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$router->get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
+	// ...
+});
+								</code>
+							</pre>
+						</div>
+						<p>Route parameters are always encased within {} braces and should consist of alphabetic characters. Underscores (_) are also acceptable within route parameter names. Route parameters are injected into route callbacks / controllers based on their order - the names of the route callback / controller arguments do not matter.</p>
+						<h4>Regular Expression Constraints</h4>
+						<p>You may constrain the format of your route parameters using the where method on a route instance. The where method accepts the name of the parameter and a regular expression defining how the parameter should be constrained:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+Route::get('/user/{name}', function (string $name) {
+	// ...
+})->where('name', '[A-Za-z]+');
+	
+Route::get('/user/{id}', function (string $id) {
+	// ...
+})->where('id', '[0-9]+');
+	
+Route::get('/user/{id}/{name}', function (string $id, string $name) {
+	// ...
+})->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
+								</code>
+							</pre>
+						</div>
+						<p>For convenience, some commonly used regular expression patterns have helper methods that allow you to quickly add pattern constraints to your routes:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+Route::get('/user/{id}/{name}', function (string $id, string $name) {
+	// ...
+})->whereNumber('id')->whereAlpha('name');
+	
+Route::get('/user/{name}', function (string $name) {
+	// ...
+})->whereAlphaNumeric('name');
+	
+Route::get('/user/{id}', function (string $id) {
+	// ...
+})->whereUuid('id');
+	
+Route::get('/user/{id}', function (string $id) {
+	//
+})->whereUlid('id');
+	
+Route::get('/category/{category}', function (string $category) {
+	// ...
+})->whereIn('category', ['movie', 'song', 'painting']);
+								</code>
+							</pre>
+						</div>
+						<p>If the incoming request does not match the route pattern constraints, a 404 HTTP response will be returned.</p>
 						<div class="table-responsive-sm">
 							<table class="table table-bordered table-small">
 								<thead>
@@ -2702,7 +2750,7 @@ $this->io->post_get('field')
 $this->io->get_post('field')
 
 //Sets a cookie containing the values you specify. There are two ways to pass information to this method so that a cookie can be set: Array Method, and Discrete Parameters:
-//options value: doamin, path, prefix, secure, and samesite									
+//options value: doamin, path, prefix, secure, and samesite
 $this->io->set_cookie($name, $value, $expiration, $options = array())
 
 //Returns the IP address for the current user. If the IP address is not valid, the method will return ‘0.0.0.0’:
@@ -3303,7 +3351,7 @@ $this->db->rollBack();
 								</code>
 							</pre>
 						</div>
-						
+
 					</section>
 				</article>
 			    <footer class="footer">
