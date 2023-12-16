@@ -560,15 +560,15 @@ $router->get('/posts/{post}/comments/{comment}', function ($postId, $commentId) 
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-Route::get('/user/{name}', function (string $name) {
+$router->get('/user/{name}', function (string $name) {
 	// ...
 })->where('name', '[A-Za-z]+');
 	
-Route::get('/user/{id}', function (string $id) {
+$router->get('/user/{id}', function (string $id) {
 	// ...
 })->where('id', '[0-9]+');
 	
-Route::get('/user/{id}/{name}', function (string $id, string $name) {
+$router->get('/user/{id}/{name}', function (string $id, string $name) {
 	// ...
 })->where(['id' => '[0-9]+', 'name' => '[a-z]+']);
 								</code>
@@ -578,23 +578,23 @@ Route::get('/user/{id}/{name}', function (string $id, string $name) {
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-Route::get('/user/{id}/{name}', function (string $id, string $name) {
+$router->get('/user/{id}/{name}', function (string $id, string $name) {
 	// ...
 })->whereNumber('id')->whereAlpha('name');
 	
-Route::get('/user/{name}', function (string $name) {
+$router->get('/user/{name}', function (string $name) {
 	// ...
 })->whereAlphaNumeric('name');
 	
-Route::get('/user/{id}', function (string $id) {
+$router->get('/user/{id}', function (string $id) {
 	// ...
 })->whereUuid('id');
 	
-Route::get('/user/{id}', function (string $id) {
+$router->get('/user/{id}', function (string $id) {
 	//
 })->whereUlid('id');
 	
-Route::get('/category/{category}', function (string $category) {
+$router->get('/category/{category}', function (string $category) {
 	// ...
 })->whereIn('category', ['movie', 'song', 'painting']);
 								</code>
