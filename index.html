@@ -578,25 +578,25 @@ $router->get('/user/{id}/{name}', function (string $id, string $name) {
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$router->get('/user/{id}/{name}', function (string $id, string $name) {
+$router->get('/user/{id}/{name}', function ($id, $name) {
 	// ...
-})->whereNumber('id')->whereAlpha('name');
+})->where_number('id')->where_alpha('name');
 	
-$router->get('/user/{name}', function (string $name) {
+$router->get('/user/{name}', function ($name) {
 	// ...
-})->whereAlphaNumeric('name');
+})->where_alphanumeric('name');
 	
-$router->get('/user/{id}', function (string $id) {
+$router->get('/user/{id}', function ($id) {
 	// ...
-})->whereUuid('id');
+})->where_uuid('id');
 	
-$router->get('/user/{id}', function (string $id) {
+$router->get('/user/{id}', function ($id) {
 	//
-})->whereUlid('id');
+})->where_ulid('id');
 	
-$router->get('/category/{category}', function (string $category) {
+$router->get('/category/{category}', function ($category) {
 	// ...
-})->whereIn('category', ['movie', 'song', 'painting']);
+})->where_in('category', ['movie', 'song', 'painting']);
 								</code>
 							</pre>
 						</div>
@@ -2724,6 +2724,29 @@ $this->io->is_ajax()
 
 //Returns the $_SERVER['REQUEST_METHOD'], with the option to set it in uppercase or lowercase.
 $this->io->method()
+								</code>
+							</pre>
+						</div>
+						<h4>Other Response Methods</h4>
+						<p>If you need customize responses with the ability to add and set headers, set status codes and contents you LavaLust IO class has default methods for them.</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$this->io->set_status_code(200);
+//HTML content
+$this->io->set_header('Content-Type', 'text/html');
+$this->io->set_content('<h1>Hello, World!</h1>');
+
+//or simple
+$this->io->set_html_content('<h1>Hello, World!</h1>');
+
+$this->io->send();
+
+//Alternatively, send a JSON response (for API)
+$this->io->add_header('Access-Control-Allow-Origin', '*');
+$this->add_header('Content-Type', 'application/json');
+$data = ['message' => 'Hello, World!'];
+$this->io->send_json($data);
 								</code>
 							</pre>
 						</div>
