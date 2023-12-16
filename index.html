@@ -2732,20 +2732,30 @@ $this->io->method()
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$this->io->set_status_code(200);
+//Sample Response
 //HTML content
-$this->io->set_header('Content-Type', 'text/html');
+$this->io->add_header('Content-Type', 'text/html');
 $this->io->set_content('<h1>Hello, World!</h1>');
 
 //or simple
 $this->io->set_html_content('<h1>Hello, World!</h1>');
 
-$this->io->send();
+//Set status code
+$this->io->set_status_code(200);
 
+//Send Response
+$this->io->send();
+								</code>
+							</pre>
+						</div>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
 //Alternatively, send a JSON response (for API)
 $this->io->add_header('Access-Control-Allow-Origin', '*');
-$this->add_header('Content-Type', 'application/json');
+$this->io->add_header('Content-Type', 'application/json');
 $data = ['message' => 'Hello, World!'];
+$this->io->set_status_code(200);
 $this->io->send_json($data);
 								</code>
 							</pre>
