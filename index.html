@@ -939,11 +939,11 @@ class Page extends Controller {
 
 	public function index()
 	{
-			$data['page_title'] = 'Your title';
-			$this->load->view('header');
-			$this->load->view('menu');
-			$this->load->view('content', $data);
-			$this->load->view('footer');
+		$data['page_title'] = 'Your title';
+		$this->load->view('header');
+		$this->load->view('menu');
+		$this->load->view('content', $data);
+		$this->load->view('footer');
 	}
 
 }
@@ -1096,6 +1096,10 @@ class Blog extends Controller {
 							<pre>
 								<code class="language-php">
 class Blog_model extends Model {
+
+	public $title;
+	public $content;
+	public $date;
 
 	public function get_last_ten_entries()
 	{
