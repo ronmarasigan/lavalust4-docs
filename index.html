@@ -922,6 +922,172 @@ class Blog extends Controller {
 							</pre>
 						</div>
 						<p>If you visit your site using the URL you did earlier you should see your new view. The URL was similar to this:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="plaintext">
+example.com/index.php/blog/
+								</code>
+							</pre>
+						</div>
+						<h4>Loading multiple views</h4>
+						<p>LavaLust will intelligently handle multiple calls to $this->call->view() from within a controller. If more than one call happens they will be appended together. For example, you may wish to have a header view, a menu view, a content view, and a footer view. That might look something like this:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+&lt;?php
+class Page extends Controller {
+
+	public function index()
+	{
+			$data['page_title'] = 'Your title';
+			$this->load->view('header');
+			$this->load->view('menu');
+			$this->load->view('content', $data);
+			$this->load->view('footer');
+	}
+
+}
+								</code>
+							</pre>
+						</div>
+						<p>In the example above, we are using “dynamically added data”, which you will see below.</p>
+						<h4>Storing Views within Sub-directories</h4>
+						<p>Your view files can also be stored within sub-directories if you prefer that type of organization. When doing so you will need to include the directory name loading the view. Example:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$this->call->view('directory_name/file_name');
+								</code>
+							</pre>
+						</div>
+						<h4>Adding Dynamic Data to the View</h4>
+						<p>Data is passed from the controller to the view by way of an array or an object in the second parameter of the view loading method. Here is an example using an array:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$data = array(
+	'title' => 'My Title',
+	'heading' => 'My Heading',
+	'message' => 'My Message'
+);
+
+$this->call->view('blogview', $data);
+								</code>
+							</pre>
+						</div>
+						<p>And here’s an example using an object:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$data = new Someclass();
+$this->load->view('blogview', $data);
+								</code>
+							</pre>
+						</div>
+						<div class="callout-block callout-block-info">
+							<div class="content">
+								<h4 class="callout-title">
+									<span class="callout-icon-holder me-1">
+										<i class="fas fa-info-circle"></i>
+									</span><!--//icon-holder-->
+									Note
+								</h4>
+								<p>If you use an object, the class variables will be turned into array elements.</p>
+							</div><!--//content-->
+						</div><!--//callout-block-->
+						<p>Let’s try it with your controller file. Open it add this code:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+&lt;?php
+class Blog extends Controller {
+
+	public function index()
+	{
+			$data['title'] = "My Real Title";
+			$data['heading'] = "My Real Heading";
+
+			$this->call->view('blogview', $data);
+	}
+}
+								</code>
+							</pre>
+						</div>
+						<p>Now open your view file and change the text to variables that correspond to the array keys in your data:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-html">
+<html>
+<head>
+		<title><?php echo $title;?></title>
+</head>
+<body>
+		<h1><?php echo $heading;?></h1>
+</body>
+</html>
+								</code>
+							</pre>
+						</div>
+						<p>Then load the page at the URL you’ve been using and you should see the variables replaced.</p>
+						<h4>Creating Loops</h4>
+						<p>The data array you pass to your view files is not limited to simple variables. You can pass multi dimensional arrays, which can be looped to generate multiple rows. For example, if you pull data from your database it will typically be in the form of a multi-dimensional array.</p>
+						<p>Here’s a simple example. Add this to your controller:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+&lt;?php
+class Blog extends Controller {
+
+	public function index()
+	{
+			$data['todo_list'] = array('Clean House', 'Call Mom', 'Run Errands');
+
+			$data['title'] = "My Real Title";
+			$data['heading'] = "My Real Heading";
+
+			$this->call->view('blogview', $data);
+	}
+}
+								</code>
+							</pre>
+						</div>
+						<p>Now open your view file and create a loop:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-html">
+<html>
+<head>
+	<title><?php echo $title;?></title>
+</head>
+<body>
+	<h1><?php echo $heading;?></h1>
+
+	<h3>My Todo List</h3>
+
+	<ul>
+	<?php foreach ($todo_list as $item):?>
+
+			<li><?php echo $item;?></li>
+
+	<?php endforeach;?>
+	</ul>
+
+</body>
+</html>
+								</code>
+							</pre>
+						</div>
+						<div class="callout-block callout-block-info">
+							<div class="content">
+								<h4 class="callout-title">
+									<span class="callout-icon-holder me-1">
+										<i class="fas fa-info-circle"></i>
+									</span><!--//icon-holder-->
+									Note
+								</h4>
+								<p>You’ll notice that in the example above we are using PHP’s alternative syntax. If you are not familiar with it you can read about it here.</p>
+							</div><!--//content-->
+						</div><!--//callout-block-->
 					</section>
 					<section class="docs-section" id="item-4-4">
 						<h2 class="section-heading">Models</h2>
