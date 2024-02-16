@@ -608,8 +608,30 @@ $router->get('/category/{category}', function ($category) {
 								<code class="language-php">
 &lt;?php
 $router->group('admin', function() use ($router) {
-    $routes->get('users', 'Users::index');
-    $routes->get('blog', 'Blog::index');
+    $router->get('users', 'Users::index');
+    $router->get('blog', 'Blog::index');
+});
+								</code>
+							</pre>
+						</div>
+						<div class="callout-block callout-block-info">
+							<div class="content">
+								<h4 class="callout-title">
+									<span class="callout-icon-holder me-1">
+										<i class="fas fa-info-circle"></i>
+									</span><!--//icon-holder-->
+									Note
+								</h4>
+								<p>You use lava_instance() in routes.php by passing it to a variable then add it by using the "use" keyword.</p>
+							</div><!--//content-->
+						</div><!--//callout-block-->
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+&lt;?php
+$_lava =& lava_instance();
+$router->get('/', function() use ($_lava) {
+    $_lava->call->view('welcome_page');
 });
 								</code>
 							</pre>
