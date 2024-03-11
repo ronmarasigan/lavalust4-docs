@@ -2946,6 +2946,11 @@ $this->io->send();
 //Alternatively, send a JSON response (for API)
 $this->io->add_header('Access-Control-Allow-Origin', '*');
 $this->io->add_header('Content-Type', 'application/json');
+//Or use array for add_header
+$this->io->add_header([
+	'Access-Control-Allow-Origin' => '*',
+	'Content-Type' => 'application/json'
+]);
 $data = ['message' => 'Hello, World!'];
 $this->io->set_status_code(200);
 $this->io->send_json($data);
