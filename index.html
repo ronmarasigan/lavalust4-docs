@@ -101,6 +101,8 @@
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-6">Language Class</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-7">Session Library</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-8">Input and Output</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-9">Config Class</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#item-5-10">Encryption Class</a></li>
 					<li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-6"><span class="theme-icon-holder me-2"><i class="fas fa-database"></i></span>Database Reference</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-6-1">Database Configuration</a></li>
 					<li class="nav-item"><a class="nav-link scrollto" href="#item-6-2">Connecting to Database</a></li>
@@ -250,6 +252,8 @@ example.com/news/article/345
 							<li>Simple Email Sending</li>
 							<li>File Uploading Class</li>
 							<li>Performance Class</li>
+							<li>Config Class</li>
+							<li>Simple Logger Class</li>
 							<li>Pagination</li>
 							<li>Simple Page Caching</li>
 							<li>File Downloading Class</li>
@@ -2958,6 +2962,111 @@ $this->io->send_json($data);
 							</pre>
 						</div>
 					</section>
+					<section class="docs-section" id="item-5-9">
+						<h2 class="section-heading">Config Class</h2>
+						<p>The Config class provides a means to retrieve configuration preferences. These preferences can come from the default config file (app/config/config.php) or from your own custom config files.</p>
+						<p>By default, LavaLust has one primary config file, located at app/config/config.php. If you open the file using your text editor you’ll see that config items are stored in an array called $config.</p>
+						<p>You can add your own config items to this file, or if you prefer to keep your configuration items separate (assuming you even need config items), simply create your own file and save it in config folder.</p>
+						<div class="callout-block callout-block-info">
+							<div class="content">
+								<h4 class="callout-title">
+									<span class="callout-icon-holder me-1">
+										<i class="fas fa-info-circle"></i>
+									</span><!--//icon-holder-->
+									Note
+								</h4>
+								<p>If you do create your own config files use the same format as the primary one, storing your items in an array called $config. LavaLust will intelligently manage these files so there will be no conflict even though the array has the same name (assuming an array index is not named the same as another).</p>
+							</div><!--//content-->
+						</div><!--//callout-block-->
+						<h4>Manual Loading</h4>
+						<p>To load one of your custom config files you will use the following function within the controller that needs it:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$this->config->load('filename');
+								</code>
+							</pre>
+						</div>
+						<p>Where filename is the name of your config file, without the .php file extension.</p>
+						<p>If you need to load multiple config files normally they will be merged into one master config array. Name collisions can occur, however, if you have identically named array indexes in different config files. To avoid collisions you can set the second parameter to TRUE and each config file will be stored in an array index corresponding to the name of the config file. Example:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+// Stored in an array with this prototype: $this->config['blog_settings'] = $config
+$this->config->load('blog_settings', TRUE);
+								</code>
+							</pre>
+						</div>
+						<h4>Auto-loading</h4>
+						<p>If you find that you need a particular config file globally, you can have it loaded automatically by the system. To do this, open the autoload.php file, located at application/config/autoload.php, and add your config file as indicated in the file.</p>
+						<h4>Fetching Config Items</h4>
+						<p>To retrieve an item from your config file, use the following function:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$this->config->get('item_name');
+								</code>
+							</pre>
+						</div>
+						<p>Where item_name is the $config array index you want to retrieve. For example, to fetch your language choice you’ll do this:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$lang = $this->config->get('language');
+								</code>
+							</pre>
+						</div>
+						<p>The function returns NULL if the item you are trying to fetch does not exist.</p>
+						<P>If you are using the second parameter of the $this->config->load function in order to assign your config items to a specific index you can retrieve it by specifying the index name in the second parameter of the $this->config->get() function. Example:</P>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+// Loads a config file named blog_settings.php and assigns it to an index named "blog_settings"
+$this->config->load('blog_settings', TRUE);
+
+// Retrieve a config item named site_name contained within the blog_settings array
+$site_name = $this->config->get('site_name', 'blog_settings');
+
+// An alternate way to specify the same item:
+$blog_config = $this->config->get('blog_settings');
+$site_name = $blog_config['site_name'];
+								</code>
+							</pre>
+						</div>
+						<h4>Setting a Config Item</h4>
+						<p>If you would like to dynamically set a config item or change an existing one, you can do so using:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$this->config->set('item_name', 'item_value');
+								</code>
+							</pre>
+						</div>
+						<p>Where item_name is the $config array index you want to change, and item_value is its value.</p>
+					</section><!--//section-->
+					<section class="docs-section" id="item-5-10">
+						<h2 class="section-heading">Encryption Class</h2>
+						<p>The Encryption Library provides two-way data encryption. To do so in a cryptographically secure way, it utilizes PHP extensions called OpenSSL</p>
+						<h4>Initializing the Class</h4>
+						<p>Like most other classes in LavaLust, the Encryption library is initialized in your controller using the <span class="code_red">$this->call->library()</span> method:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$this->call->library('encryption');
+								</code>
+							</pre>
+						</div>
+						<p>Once loaded, the Encryption library object will be available using:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$this->encryption;
+								</code>
+							</pre>
+						</div>
+						<h4>Encrypting and decrypting data</h4>
+						<p>Encrypting and decrypting data with the already configured library settings is simple. As simple as just passing the string to the <span class="code_red">encrypt()</span> and/or <span class="code_red">decrypt()</span> methods:</p>
+					</section><!--//section-->
 				</article>
 				<article class="docs-article" id="section-6">
 				    <header class="docs-header">
