@@ -3052,6 +3052,8 @@ $this->config->set('item_name', 'item_value');
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
+$this->call->library('encryption');
+//or									
 $this->call->library('encryption', 'cipher type'); //cipher is optional. If empty, it will use AES-256-CBC cipher.
 								</code>
 							</pre>
