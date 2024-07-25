@@ -3052,7 +3052,7 @@ $this->config->set('item_name', 'item_value');
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$this->call->library('encryption');
+$this->call->library('encryption', 'cipher type'); //cipher is optional. If empty, it will use AES-256-CBC cipher.
 								</code>
 							</pre>
 						</div>
@@ -3064,8 +3064,20 @@ $this->encryption;
 								</code>
 							</pre>
 						</div>
+						<p>By default, the Encryption Library will use the AES-256 cipher in CBC mode, using your configured encryption_key.</p>
 						<h4>Encrypting and decrypting data</h4>
 						<p>Encrypting and decrypting data with the already configured library settings is simple. As simple as just passing the string to the <span class="code_red">encrypt()</span> and/or <span class="code_red">decrypt()</span> methods:</p>
+						<div class="docs-code-block">
+							<pre>
+								<code class="language-php">
+$plain_text = 'This is a plain-text message!';
+$ciphertext = $this->encryption->encrypt($plain_text);
+
+// Outputs: This is a plain-text message!
+echo $this->encryption->decrypt($ciphertext);
+								</code>
+							</pre>
+						</div>
 					</section><!--//section-->
 				</article>
 				<article class="docs-article" id="section-6">
