@@ -3223,10 +3223,11 @@ $this->call->database();
 						<p>Note: If all your pages require database access you can connect automatically</p>
 						<h4>raw()</h4>
 						<p>This method has one require parameter which is the SQL statement.</p>
+						<p>The second parameter is an array which will be substituted to the placeholder (?) or named placeholder (:id) when statement is executed.</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$data = $this->db->raw('select * from user');
+$data = $this->db->raw('select * from user where id = ?', array(1));
 foreach($data as $row) {
 	echo $row['id'];
 	echo $row['username'];
@@ -3237,11 +3238,11 @@ echo $this->db->row_count();
 								</code>
 							</pre>
 						</div>
-						<p>This method has two(2) more parameters that are not required. Arrays of value and PDO fetch mode. Check the example below.</p>
+						<p>You can also use named parameters like this.</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$data = $this->db->raw('select * from user where = ?', array(1), PDO::FETCH_ASSOC);
+$data = $this->db->raw('select * from user where id = :id', array('id' => 1));
 foreach($data as $row) {
 	echo $row['id'];
 	echo $row['username'];
@@ -3252,8 +3253,6 @@ echo $this->db->row_count();
 								</code>
 							</pre>
 						</div>
-						<p>The second parameter is an array which will be substituted to the placeholder (?) when statement is executed. While the third one can be FETCH_OBJ, FETCH_CLASS, etc. </p>
-						<p>Note: If you need to chance the fetch mode and you don't need to supply any array value, jusy add empty array to the second parameter.</p>
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
