@@ -3253,20 +3253,6 @@ echo $this->db->row_count();
 								</code>
 							</pre>
 						</div>
-						<div class="docs-code-block">
-							<pre>
-								<code class="language-php">
-$data = $this->db->raw('select * from user', array(), PDO::FETCH_OBJ);
-foreach($data as $row) {
-	echo $row->id;
-	echo $row->username;
-	echo $row->password;
-}
-
-echo $this->db->row_count();
-								</code>
-							</pre>
-						</div>
 						<h4>select()</h4>
 						<div class="docs-code-block">
 							<pre>
