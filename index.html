@@ -3227,7 +3227,7 @@ $this->call->database();
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$data = $this->db->raw('select * from user where id = ?', array(1));
+$data = $this->db->raw('select * from user where id = ?', array(1))->fetchAll();
 foreach($data as $row) {
 	echo $row['id'];
 	echo $row['username'];
@@ -3242,7 +3242,7 @@ echo $this->db->row_count();
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$data = $this->db->raw('select * from user where id = :id', array('id' => 1));
+$data = $this->db->raw('select * from user where id = :id', array('id' => 1))->fetchAll();
 foreach($data as $row) {
 	echo $row['id'];
 	echo $row['username'];
