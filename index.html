@@ -1702,11 +1702,11 @@ $config['csrf_protection'] = TRUE;
 						<div class="docs-code-block">
 							<pre>
 								<code class="language-php">
-$this->performance->tag('referrence_name');
+$this->performance->start('referrence_name');
 
 // Some code happens here
 
-$this->performance->tag('referrence_name');
+$this->performance->stop('referrence_name');
 echo $this->performance->elapsed_time('referrence_name');
 								</code>
 							</pre>
@@ -1723,23 +1723,23 @@ echo $this->performance->elapsed_time('referrence_name');
 								<div class="docs-code-block">
 									<pre>
 										<code class="language-php">
-$this->performance->tag('dog');
+$this->performance->start('dog');
 
 // Some code happens here
 
-$this->performance->tag('cat');
+$this->performance->start('cat');
 
 // More code happens here
 
-$this->performance->tag('cat');
+$this->performance->stop('cat');
 
-$this->performance->tag('bird');
+$this->performance->start('bird');
 
 // More code happens here
 
-$this->performance->tag('bird');
+$this->performance->stop('bird');
 
-$this->performance->tag('dog');
+$this->performance->stop('dog');
 
 echo $this->performance->elapsed_time('dog');
 echo $this->performance->elapsed_time('cat');
@@ -1985,7 +1985,7 @@ $this->email->send();
 &lt;title&gt;My Form&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;?php $LAVA = get_instance(); ?&gt;
+&lt;?php $LAVA = lava_instance(); ?&gt;
 &lt;?php echo $LAVA->form_validation->errors(); ?&gt;
 &lt;form action=&quot;&lt;?php echo site_url('form');?&gt;&quot; method=&quot;post&quot;&gt;
 &lt;h5&gt;Username&lt;/h5&gt;
